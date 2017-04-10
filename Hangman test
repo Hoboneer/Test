@@ -1,0 +1,72 @@
+#Hang man
+import random
+
+#Need to do the letters and stuff
+
+pack1 = ['doubt', 'envy', 'greed', 'fury', 'sloth',
+  'depression', 'disgust', 'fear', 'love', 'pity']
+pack2 = ['fly', 'ox', 'cougar', 'zebra', 'aardvark',
+  'triceratops', 'crocodile', 'hippopotamus', 'dingo', 'spider']
+pack3 = ['revolutionary', 'physics', 'explicit', 'branch', 'inflation', 'radical', 'critical', 'monarch', 'harmony', 'sandwich']
+correctLetters = set()
+
+def hangStart():
+  length = len(word)
+  hidden = "_ "
+  print ("=" * 25)
+  print (hidden * length)
+  print (word)
+  guess = str.lower(input("Enter guess: "))
+  return (checkRight(splitWord,guess))
+
+def checkRight(splitWord,guess):
+  #print ("hi")
+  if guess in splitWord:
+    for guess in splitWord:
+      correctLetters.add(guess)
+      splitWord.remove(guess)
+      print (correctLetters)
+      print (splitWord)
+      return
+  else:
+    lives -= 1 #get this to do it right
+    print ("wrong")
+    
+
+def wordSplit():
+  s = word
+  splitWord = list(s)
+  return splitWord
+  
+lives = 9
+
+packChoose = True
+while packChoose == True:
+  packChoice = input("What pack do you want to play? (1|2|3)")
+  if packChoice == "1":
+    hangmanOption1 = True
+    word = random.choice(pack1)
+    wordSplit()
+    splitWord = wordSplit()
+    print (splitWord)
+    break
+  elif packChoice == "2":
+    hangmanOption2 = True
+    word = random.choice(pack2)
+    wordSplit()
+    splitWord = wordSplit()
+    print (splitWord)
+    break
+  elif packChoice == "3":
+    hangmanOption3 = True
+    word = random.choice(pack3)
+    wordSplit()
+    splitWord = wordSplit()
+    print (splitWord)
+    break
+  else:
+    print ("Invalid answer")
+    
+while hangmanOption1 == True:
+  hangStart()
+  
