@@ -8,30 +8,33 @@ pack1 = ['doubt', 'envy', 'greed', 'fury', 'sloth',
 pack2 = ['fly', 'ox', 'cougar', 'zebra', 'aardvark',
   'triceratops', 'crocodile', 'hippopotamus', 'dingo', 'spider']
 pack3 = ['revolutionary', 'physics', 'explicit', 'branch', 'inflation', 'radical', 'critical', 'monarch', 'harmony', 'sandwich']
-correctLetters = set()
+correctLetters = list()
 
-def hangStart():
-  length = len(word)
-  hidden = "_ "
+def hangStart(correctLetters,lives):
+  hidden = "_"
+  lengthWord = len(word)
+  correctLetters = list(hidden * lengthWord)
   print ("=" * 25)
-  print (hidden * length)
+  print (correctLetters)
   print (word)
   guess = str.lower(input("Enter guess: "))
-  return (checkRight(splitWord,guess))
+  return (checkRight(splitWord,guess,lives))
 
-def checkRight(splitWord,guess):
+def checkRight(splitWord,guess,lives):
   #print ("hi")
   if guess in splitWord:
-    for guess in splitWord:
-      correctLetters.add(guess)
-      splitWord.remove(guess)
-      print (correctLetters)
-      print (splitWord)
-      return
+    for i in splitWord:
+      if guess == i:
+        correctLetters.append(i)
+        splitWord.remove(i)
+    print (correctLetters)
+    print (splitWord)
+    return
   else:
     lives -= 1 #get this to do it right
+    print (lives)
     print ("wrong")
-    
+    return lives    
 
 def wordSplit():
   s = word
@@ -68,5 +71,5 @@ while packChoose == True:
     print ("Invalid answer")
     
 while hangmanOption1 == True:
-  hangStart()
+  hangStart(correctLetters,lives)
   
