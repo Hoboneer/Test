@@ -24,21 +24,16 @@ def hangGame(correctLetters,lives):
   return (checkRight(splitWord,guess,lives))
 
 def checkRight(splitWord,guess,lives):
-  #print ("hi")
   if guess in splitWord:
     for index,letter in enumerate(splitWord):
-      #print ("Index == ", index)
-      #print ("Letter ==", letter)
       if letter == guess:      
         correctLetters[index] = guess
         splitWord[index] = "_"
       else:
         pass
-      #print (correctLetters)
-      #print (splitWord)
     return (correctLetters,splitWord,lives)
   else:
-    lives -= 1 #get this to do it right
+    lives -= 1
     print (lives)
     print ("wrong")
     return lives    
@@ -75,7 +70,6 @@ while not done:
   if hangmanOption1 == True:
     if gameStartUp == True:
       correctLetters,gameStartUp = hangStart()
-      #print (gameStartUp)
     else:
       pass
     correctLetters, splitWord, lives = hangGame(correctLetters,lives)
