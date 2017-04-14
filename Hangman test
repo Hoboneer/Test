@@ -1,17 +1,16 @@
 #Hang man
 import random
 
-#Need to do the letters and stuff
-
+#Lists of words for the program to choose from
 pack1 = ['doubt', 'envy', 'greed', 'fury', 'sloth',
   'depression', 'disgust', 'fear', 'love', 'pity']
 pack2 = ['fly', 'ox', 'cougar', 'zebra', 'aardvark',
   'triceratops', 'crocodile', 'hippopotamus', 'dingo', 'spider']
 pack3 = ['revolutionary', 'physics', 'explicit', 'branch', 'inflation', 'radical', 'critical', 'monarch', 'harmony', 'sandwich']
 
-correctLetters = list()
-
 gameStartUp = True
+lives = 9
+done = False
 
 def hangStart():
   correctLetters = list("_" * len(word))
@@ -21,7 +20,6 @@ def hangStart():
 def hangGame(correctLetters,lives):
   print ("=" * 25)
   print (correctLetters)
-  print (word)
   guess = str.lower(input("Enter guess: "))
   return (checkRight(splitWord,guess,lives))
 
@@ -46,11 +44,8 @@ def checkRight(splitWord,guess,lives):
     return lives    
 
 def wordSplit():
-  s = word
-  splitWord = list(s)
+  splitWord = list(word)
   return splitWord
-  
-lives = 9
 
 packChoose = True
 while packChoose == True:
@@ -76,8 +71,6 @@ while packChoose == True:
   else:
     print ("Invalid answer")
     
-done = False
-
 while not done:    
   if hangmanOption1 == True:
     if gameStartUp == True:
