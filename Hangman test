@@ -8,12 +8,17 @@ pack1 = ['doubt', 'envy', 'greed', 'fury', 'sloth',
 pack2 = ['fly', 'ox', 'cougar', 'zebra', 'aardvark',
   'triceratops', 'crocodile', 'hippopotamus', 'dingo', 'spider']
 pack3 = ['revolutionary', 'physics', 'explicit', 'branch', 'inflation', 'radical', 'critical', 'monarch', 'harmony', 'sandwich']
+
 correctLetters = list()
 
-def hangStart(correctLetters,lives):
-  hidden = "_"
-  lengthWord = len(word)
-  correctLetters = list(hidden * lengthWord)
+gameStartUp = True
+
+def hangStart():
+  correctLetters = list("_" * len(word))
+  gameStartUp = False
+  return correctLetters,gameStartUp
+
+def hangGame(correctLetters,lives):
   print ("=" * 25)
   print (correctLetters)
   print (word)
@@ -23,13 +28,17 @@ def hangStart(correctLetters,lives):
 def checkRight(splitWord,guess,lives):
   #print ("hi")
   if guess in splitWord:
-    for i in splitWord:
-      if guess == i:
-        correctLetters.append(i)
-        splitWord.remove(i)
-    print (correctLetters)
-    print (splitWord)
-    return
+    for index,letter in enumerate(splitWord):
+      #print ("Index == ", index)
+      #print ("Letter ==", letter)
+      if letter == guess:      
+        correctLetters[index] = guess
+        splitWord[index] = "_"
+      else:
+        pass
+      #print (correctLetters)
+      #print (splitWord)
+    return (correctLetters,splitWord,lives)
   else:
     lives -= 1 #get this to do it right
     print (lives)
@@ -49,27 +58,34 @@ while packChoose == True:
   if packChoice == "1":
     hangmanOption1 = True
     word = random.choice(pack1)
-    wordSplit()
     splitWord = wordSplit()
     print (splitWord)
     break
   elif packChoice == "2":
     hangmanOption2 = True
     word = random.choice(pack2)
-    wordSplit()
     splitWord = wordSplit()
     print (splitWord)
     break
   elif packChoice == "3":
     hangmanOption3 = True
     word = random.choice(pack3)
-    wordSplit()
     splitWord = wordSplit()
     print (splitWord)
     break
   else:
     print ("Invalid answer")
     
-while hangmanOption1 == True:
-  hangStart(correctLetters,lives)
-  
+done = False
+
+while not done:    
+  if hangmanOption1 == True:
+    if gameStartUp == True:
+      correctLetters,gameStartUp = hangStart()
+      #print (gameStartUp)
+    else:
+      pass
+    correctLetters, splitWord, lives = hangGame(correctLetters,lives)
+    print("correctLetters == ", correctLetters)
+    print("splitWord == ", splitWord)
+    print (lives)
