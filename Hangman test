@@ -109,8 +109,8 @@ lives = 9
 
 def complete_game():
     if all(letters == "_" for letters in split_word):
-        print ("""Congratulations! You correctly guessed the word without 
-                dying!""")
+        print ("""Congratulations! 
+        You correctly guessed the word without dying!""")
         done = True
         return correct_letters, split_word, lives, done
     elif lives == 0:
