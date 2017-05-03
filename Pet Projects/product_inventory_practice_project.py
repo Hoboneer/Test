@@ -120,7 +120,8 @@ class Inventory():
         """
         Asks user which product they would like to edit then asks the price of 
         one unit and the quantity of units. Upon success of the whole method, 
-        it overwrites the old product with a new one.
+        it updates the specified product using the 'update_product(price, 
+        quantity)' method.
         """
         while self.edit_product:
             products_inventory.display_inventory()
@@ -200,22 +201,22 @@ def generate_product_id():
 
 def validate_product_id(products_inventory, new_product_id):
     """
-    Checks for validity of newly generated product id. Iterates through the 
-    product objects in 'products' list and checks if the new id matches an id 
-    from one of the products. If invalid, a new id is generated (product id 
-    generating function is called again/returned to).
-    
-    It also checks the length of the new id, if it's less than 6; so the sum 
-    of the first 4 generated values for the id is less than 10. It inserts a 
-    '0' to just before the last digit.
+    Checks for validity of newly generated product id. It also checks the 
+    length of the new id, if it's less than 6; so the sum of the first 4 
+    generated values for the id is less than 10. It inserts a '0' to just 
+    before the last digit.
+
+    It also iterates through the product objects in 'products' list and checks 
+    if the new id matches an id from one of the products. If invalid, a new id 
+    is generated (product id generating function is called again/returned to).
     """
-    for index, product in enumerate(products_inventory.products):
-        if new_product_id == products_inventory.products[index].product_id:  
-            return generate_product_id()
     if len(new_product_id) < 6:
         new_product_id_list = list(new_product_id)
         new_product_id_list.insert(len(new_product_id_list) - 1, "0")
         new_product_id = "".join(new_product_id_list)
+    for index, product in enumerate(products_inventory.products):
+        if new_product_id == products_inventory.products[index].product_id:  
+            return generate_product_id()
     return new_product_id
 
 def input_error():
