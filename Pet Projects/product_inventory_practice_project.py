@@ -21,7 +21,10 @@ class Inventory():
 
     def display_inventory(self):
         """
-        Sets a string as the template for the formatting of the inventory display. It iterates through the 'products' list and displays the product's information using the template. The template is used to avoid clutter in the print statement.
+        Sets a string as the template for the formatting of the inventory 
+        display. It iterates through the 'products' list and displays the
+        product's information using the template. The template is used to 
+        avoid clutter in the print statement.
         """
         self.update_inventory_value()
         if len(self.products) == 0:
@@ -34,7 +37,11 @@ class Inventory():
 
     def update_inventory_value(self):
         """
-        Updates the (total) inventory value. It resets it to '0' first and iterates over the enumeration of the 'self.products' list, adding the total price of the products it iterates over to the inventory value. This method is called only by 'display_inventory()' to keep an updated display.
+        Updates the (total) inventory value. It resets it to '0' first and
+        iterates over the enumeration of the 'self.products' list, adding the
+        total price of the products it iterates over to the inventory value. 
+        This method is called only by 'display_inventory()' to keep an updated 
+        display.
         """
         self.inventory_value = 0
         for index, product_object in enumerate(self.products):
@@ -72,10 +79,13 @@ class Inventory():
                 return
             else:
                 input_error()
+                continue
 
     def delete_product(self):
         """
-        Asks user which product they would like to delete, a bunch of validation checks and affirmation checks. Upon success of the whole method, it deletes the product that the user chose.
+        Asks user which product they would like to delete, a bunch of 
+        validation checks and affirmation checks. Upon success of the whole 
+        method, it deletes the product that the user chose.
         """
         while self.delete_product:
             products_inventory.display_inventory()
@@ -104,10 +114,13 @@ class Inventory():
                 return
             else:
                 input_error()
+                continue
 
     def edit_product(self):
         """
-        Asks user which product they would like to edit then asks the price of one unit and the quantity of units. Upon success of the whole method, it overwrites the old product with a new one.
+        Asks user which product they would like to edit then asks the price of 
+        one unit and the quantity of units. Upon success of the whole method, 
+        it overwrites the old product with a new one.
         """
         while self.edit_product:
             products_inventory.display_inventory()
@@ -147,7 +160,7 @@ class Inventory():
                         return
                     else:
                         input_error()
-                        return
+                        continue
                 if sure == 'n':
                     continue
                 elif sure == 'q':
@@ -161,11 +174,17 @@ class Inventory():
                 return
             else:
                 input_error()
+                continue
 
 
 def generate_product_id():
     """
-    Generates a new product id for a new product being added/created. 'Randomly' generates 4 digits from 1-9 and appends its (the 4 digits individually) sum, so '1111' would get changed to '11114'. It then iterates through the new id and changes each digit (element) to a string. The list is then changed to a single string. It then gets offloaded to get validated (the new id).
+    Generates a new product id for a new product being added/created. 
+    'Randomly' generates 4 digits from 1-9 and appends its (the 4 digits 
+    individually) sum, so '1111' would get changed to '11114'. It then 
+    iterates through the new id and changes each digit (element) to a string. 
+    The list is then changed to a single string. It then gets offloaded to get 
+    validated (the new id).
     """
     while generate_product_id:
         new_product_id = []
@@ -181,9 +200,14 @@ def generate_product_id():
 
 def validate_product_id(products_inventory, new_product_id):
     """
-    Checks for validity of newly generated product id. Iterates through the product objects in 'products' list and checks if the new id matches an id from one of the products. If invalid, a new id is generated (product id generating function is called again/returned to).
+    Checks for validity of newly generated product id. Iterates through the 
+    product objects in 'products' list and checks if the new id matches an id 
+    from one of the products. If invalid, a new id is generated (product id 
+    generating function is called again/returned to).
     
-    It also checks the length of the new id, if it's less than 6; so the sum of the first 4 generated values for the id is less than 10. It inserts a '0' to just before the last digit.
+    It also checks the length of the new id, if it's less than 6; so the sum 
+    of the first 4 generated values for the id is less than 10. It inserts a 
+    '0' to just before the last digit.
     """
     for index, product in enumerate(products_inventory.products):
         if new_product_id == products_inventory.products[index].product_id:  
@@ -196,13 +220,17 @@ def validate_product_id(products_inventory, new_product_id):
 
 def input_error():
     """
-    Outputs error message when user enters an input not available to be used by the program at that point in time. The function it's called by then continues to the next iteration using 'continue' or lets the program go to the next iteration by itself (because it may be the last statement).
+    Outputs error message when user enters an input not available to be used 
+    by the program at that point in time. The function it's called by then 
+    continues to the next iteration using 'continue'.
     """
     print("\nInvalid input.")
 
 def quit_current_menu():
     """
-    Tells user that it is quitting out of the current command menu, the function it's called by then returns to the main loop. Triggered by the user typing 'q'.
+    Tells user that it is quitting out of the current command menu, the 
+    function it's called by then returns to the main loop. Triggered by the 
+    user typing 'q'.
     """
     print("\nQuitting current command menu...")
 
@@ -226,3 +254,4 @@ while active:
         break
     else:
         input_error()
+        continue
