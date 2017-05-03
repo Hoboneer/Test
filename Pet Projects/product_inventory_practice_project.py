@@ -9,6 +9,11 @@ class Product():
         self.quantity = int(quantity)
         self.total_price = self.price * self.quantity
 
+    def update_product(self, price, quantity):
+        self.price = float(price)
+        self.quantity = int(quantity)
+        self.total_price = self.price * self.quantity
+
 class Inventory():
     def __init__(self):
         self.products = []
@@ -37,7 +42,10 @@ class Inventory():
 
     def add_product(self):
         """
-        Asks user the price and the quantity of the units of the product. Validity checks and affirmation checks happen. Upon success of the whole method, it appends the specified product object to the list in the (one) instance of 'Inventory'.
+        Asks user the price and the quantity of the units of the product.
+        Validity checks and affirmation checks happen.
+        Upon success of the whole method, it appends the specified product
+        object to the list in the (one) instance of 'Inventory'.
         """
         while self.add_product:
             price_ask = str.lower(input("\nHow much does one unit cost?(USD): "))
@@ -100,8 +108,6 @@ class Inventory():
     def edit_product(self):
         """
         Asks user which product they would like to edit then asks the price of one unit and the quantity of units. Upon success of the whole method, it overwrites the old product with a new one.
-
-        **NEED TO LET USER DECIDE IF PRODUCT ID CHANGES**
         """
         while self.edit_product:
             products_inventory.display_inventory()
@@ -116,14 +122,17 @@ class Inventory():
                 while sure == 'y':
                     price_ask = str.lower(input("\nHow much does one unit cost?(USD): "))
                     quantity_ask = str.lower(input("How many units of it are available?: "))
-                    if price_ask.isdigit() and quantity_ask.isdigit():
+                    new_id_ask = str.lower(input("Do you want to generate a new ID for this product?(y/n): "))
+                    if price_ask.isdigit() and quantity_ask.isdigit() and new_id_ask == 'y' or new_id_ask == 'n':
                         price = float(price_ask)
                         quantity = int(quantity_ask)
-                        product_id = generate_product_id()
+                        product_id = self.products[int(choice) - 1].product_id
+                        if new_id_ask == 'y':
+                            product_id = generate_product_id()
                         print("\nProduct Information:\n\tProduct ID: {0}\n\tPrice: ${1:.2f}\n\tQuantity: {2}".format(product_id, price, quantity))
                         sure = str.lower(input("Are you sure that these are correct?(y/n): "))
                         if sure == 'y':
-                            self.products[int(choice) - 1](Product(price, product_id, quantity))
+                            self.products[int(choice) - 1].update_product(price, quantity)
                             return
                         elif sure == 'n':
                             continue
@@ -133,7 +142,7 @@ class Inventory():
                         else:
                             input_error()
                             continue
-                    elif price_ask or quantity_ask == 'q':
+                    elif price_ask or quantity_ask or new_id_ask == 'q':
                         quit_current_menu()
                         return
                     else:
